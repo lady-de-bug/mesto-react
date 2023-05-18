@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 
 function PlacePopup(props) {
   return (
-    <PopupWithForm name="place" title="Новое место" isOpen={props.isOpen} onClose={props.onClose}>
+    <PopupWithForm name="place" title="Новое место" buttonText='Создать' isOpen={props.isOpen} onClose={props.onClose}>
       <input
         name="name"
         type="text"
@@ -24,13 +24,13 @@ function PlacePopup(props) {
         required
       />
       <span className="popup__input-error popup__input-error_type_link" />
-      <button
+      {/* <button
         className="popup__submit-btn"
         type="submit"
         aria-label="Отправка формы."
       >
         Создать
-      </button>
+      </button> */}
     </PopupWithForm>
   );
 }

@@ -1,19 +1,36 @@
 import React from 'react';
 import api from '../utils/Api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api
       .getUserInfo()
-      .then((res) => {
+      .then((userData) => {
         // console.log(res);
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cardsData) => {
+        const cards = cardsData.map((cardData) => {
+          return { link: cardData.link, name: cardData.name, id: cardData._id };
+        });
+        // console.log(cardsData);
+        setCards(cards);
       })
       .catch((err) => {
         console.log(err);
@@ -48,7 +65,11 @@ function Main(props) {
         />
       </section>
       <section className="elements" aria-label="Фотографии мест России.">
-        <template id="elementTemplate" />
+        {cards.map((card) => {
+          return (
+            <Card card={card} key={card.id} onCardClick={props.onCardClick} />
+          );
+        })}
       </section>
     </main>
   );

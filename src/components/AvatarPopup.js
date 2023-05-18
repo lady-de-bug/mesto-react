@@ -13,13 +13,13 @@ function AvatarPopup(props) {
         required
       />
       <span className="popup__input-error popup__input-error_type_avatar" />
-      <button
+      {/* <button
         className="popup__submit-btn"
         type="submit"
         aria-label="Отправка формы."
       >
         Сохранить
-      </button>
+      </button> */}
     </PopupWithForm>
   );
 }

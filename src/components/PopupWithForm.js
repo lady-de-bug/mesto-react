@@ -14,6 +14,13 @@ function PopupWithForm(props) {
           noValidate
         >
           {props.children}
+          <button
+              className="popup__submit-btn"
+              type="submit"
+              aria-label="Отправка формы."
+            >
+              {props.buttonText||'Сохранить'}
+            </button>
         </form>
         
         <button

@@ -15,7 +15,11 @@ function App() {
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     setIsOpen(!isOpen);
@@ -36,22 +40,24 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
 
   return (
     <div className="page">
       <Header />
       <Main
+        onCardClick={handleCardClick}
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
       />
       <Footer />
-      <ImagePopup onClose={closeAllPopups}/>
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <ProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-      <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
-      <PopUpWithSubmit onClose={closeAllPopups}/>
-      <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}/>
+      <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+      <PopUpWithSubmit onClose={closeAllPopups} />
+      <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
     </div>
   );
 }

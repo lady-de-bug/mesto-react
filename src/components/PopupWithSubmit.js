@@ -3,13 +3,12 @@ import PopupWithForm from './PopupWithForm';
 
 function PopupWithSubmit(props) {
   return (
-    <PopupWithForm name="submit" title="Вы уверены?" onClose={props.onClose}>
-      <button
-        className="popup__close-icon"
-        type="button"
-        aria-label="Закрыть форму."
-      />
-    </PopupWithForm>
+    <PopupWithForm
+      name="submit"
+      title="Вы уверены?"
+      buttonText="Да"
+      onClose={props.onClose}
+    />
   );
 }
 export default PopupWithSubmit;
