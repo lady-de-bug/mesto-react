@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 
 function ProfilePopup(props) {
   return (
-    <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen}>
+    <PopupWithForm name="profile" title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose}>
       <input
         type="text"
         name="name"
