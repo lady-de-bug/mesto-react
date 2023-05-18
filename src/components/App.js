@@ -23,17 +23,14 @@ function App() {
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     setIsOpen(!isOpen);
-    // document.querySelector('.popup_type_avatar').classList.add('popup_opened');
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
     setIsOpen(!isOpen);
-    // document.querySelector('.popup_type_profile').classList.add('popup_opened');
   }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
     setIsOpen(!isOpen);
-    // document.querySelector('.popup_type_place').classList.add('popup_opened');
   }
 
   function closeAllPopups() {

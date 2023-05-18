@@ -12,7 +12,6 @@ function Main(props) {
     api
       .getUserInfo()
       .then((userData) => {
-        // console.log(res);
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
@@ -29,7 +28,7 @@ function Main(props) {
         const cards = cardsData.map((cardData) => {
           return { link: cardData.link, name: cardData.name, id: cardData._id };
         });
-        // console.log(cardsData);
+
         setCards(cards);
       })
       .catch((err) => {
