@@ -41,20 +41,25 @@ function App() {
   }
 
   return (
-    <div className="page">
-      <Header />
-      <Main
-        onCardClick={handleCardClick}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-      />
-      <Footer />
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-      <ProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-      <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-      <PopUpWithSubmit onClose={closeAllPopups} />
-      <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+    <div className="root">
+      <div className="page">
+        <Header />
+        <Main
+          onCardClick={handleCardClick}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+        />
+        <Footer />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+        <ProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        />
+        <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+        <PopUpWithSubmit onClose={closeAllPopups} />
+        <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+      </div>
     </div>
   );
 }
