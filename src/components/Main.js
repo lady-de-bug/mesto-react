@@ -1,52 +1,40 @@
 import React from 'react';
-import api from '../utils/Api';
+// import api from '../utils/Api';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  // console.log(props);
+  const currentUser = React.useContext(CurrentUserContext);
 
-  React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  // const [cards, setCards] = React.useState([]);
 
-  React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cardsData) => {
-        const cards = cardsData.map((cardData) => {
-          return { link: cardData.link, name: cardData.name, id: cardData._id };
-        });
+  // React.useEffect(() => {
+  //   api
+  //     .getInitialCards()
+  //     .then((cardsData) => {
+  //       const cards = cardsData.map((cardData) => {
+  //         return { link: cardData.link, name: cardData.name, id: cardData._id };
+  //       });
 
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  //       setCards(cards);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   return (
     <main className="main">
       <section className="profile">
         <div className="profile__content">
           <div className="profile__avatar-button" onClick={props.onEditAvatar}>
-            <img src={userAvatar} alt="#" className="profile__avatar" />
+            <img src={currentUser.avatar} alt="#" className="profile__avatar" />
           </div>
           <div className="profile__info-section">
             <div className="profile__profile-info">
-              <h1 className="profile__user-name">{userName}</h1>
-              <p className="profile__user-occupation">{userDescription}</p>
+              <h1 className="profile__user-name">{currentUser.name}</h1>
+              <p className="profile__user-occupation">{currentUser.about}</p>
             </div>
             <button
               onClick={props.onEditProfile}
@@ -64,9 +52,14 @@ function Main(props) {
         />
       </section>
       <section className="elements" aria-label="Фотографии мест России.">
-        {cards.map((card) => {
+        {props.cards.map((card) => {
           return (
-            <Card card={card} key={card.id} onCardClick={props.onCardClick} />
+            <Card
+              card={card}
+              key={card._id}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+            />
           );
         })}
       </section>

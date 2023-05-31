@@ -58,13 +58,14 @@ class Api {
     }).then((res) => this._checkResponse(res));
   }
 
-  updateLike(cardId, isLiked) {
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: isLiked ? 'DELETE' : 'PUT',
       headers: this._headers,
     }).then((res) => this._checkResponse(res));
   }
 }
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
   headers: {

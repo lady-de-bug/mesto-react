@@ -7,6 +7,8 @@ import PopUpWithSubmit from './PopupWithSubmit';
 import ProfilePopup from './ProfilePopup';
 import PlacePopup from './PlacePopup';
 import AvatarPopup from './AvatarPopup';
+import api from '../utils/Api';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
@@ -16,10 +18,52 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cardsData) => {
+        setCards(cardsData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   function handleCardClick(card) {
     setSelectedCard(card);
   }
+
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     setIsOpen(!isOpen);
@@ -41,26 +85,33 @@ function App() {
   }
 
   return (
-    <div className="root">
-      <div className="page">
-        <Header />
-        <Main
-          onCardClick={handleCardClick}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-        />
-        <Footer />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <ProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        />
-        <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
-        <PopUpWithSubmit onClose={closeAllPopups} />
-        <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="root">
+        <div className="page">
+          <Header />
+          <Main
+            onCardClick={handleCardClick}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardLike={handleCardLike}
+            cards={cards}
+          />
+          <Footer />
+          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+          />
+          <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <PopUpWithSubmit onClose={closeAllPopups} />
+          <AvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+          />
+        </div>
       </div>
-    </div>
+    </CurrentUserContext.Provider>
   );
 }
 
