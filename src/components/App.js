@@ -64,6 +64,16 @@ function App() {
       });
   }
 
+  function handleCardDelete(cardId) {
+    api.deleteCard(cardId)
+    .then(() => {
+      setCards((cards) => cards.filter((c) => c._id !== cardId));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     setIsOpen(!isOpen);
@@ -95,6 +105,7 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             cards={cards}
           />
           <Footer />
