@@ -65,13 +65,14 @@ function App() {
   }
 
   function handleCardDelete(cardId) {
-    api.deleteCard(cardId)
-    .then(() => {
-      setCards((cards) => cards.filter((c) => c._id !== cardId));
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        setCards((cards) => cards.filter((c) => c._id !== cardId));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleEditAvatarClick() {
@@ -94,6 +95,20 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleUpdateUser(newUser) {
+    console.log(newUser);
+    api
+      .editUserInfo(newUser)
+      .then((data) => {
+        console.log(data);
+        setCurrentUser(data);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -113,6 +128,7 @@ function App() {
           <ProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
           />
           <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
           <PopUpWithSubmit onClose={closeAllPopups} />
