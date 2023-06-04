@@ -8,17 +8,24 @@ function PlacePopup(props) {
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-      // Передаём значения управляемых компонентов во внешний обработчик
+    // Передаём значения управляемых компонентов во внешний обработчик
     props.onAddPlace({
       name: name,
       link: place,
     });
-  } 
+  }
+
+  React.useEffect(() => {
+    if (props.isOpen) {
+      setName('');
+      setPlace('');
+    }
+  }, [props.isOpen]);
 
   function handleChangeName(e) {
     setName(e.target.value);
   }
-  
+
   function handleChangePlace(e) {
     setPlace(e.target.value);
   }

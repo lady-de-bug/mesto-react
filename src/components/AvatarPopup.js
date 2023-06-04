@@ -12,6 +12,12 @@ function AvatarPopup(props) {
     });
   }
 
+  React.useEffect(() => {
+    if (props.isOpen) {
+      avatarRef.current.value = '';
+    }
+  }, [props.isOpen, avatarRef]);
+
   return (
     <PopupWithForm
       name="avatar"
