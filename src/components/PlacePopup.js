@@ -2,6 +2,27 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function PlacePopup(props) {
+  const [name, setName] = React.useState('');
+  const [place, setPlace] = React.useState('');
+
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+      // Передаём значения управляемых компонентов во внешний обработчик
+    props.onAddPlace({
+      name: name,
+      link: place,
+    });
+  } 
+
+  function handleChangeName(e) {
+    setName(e.target.value);
+  }
+  
+  function handleChangePlace(e) {
+    setPlace(e.target.value);
+  }
+
   return (
     <PopupWithForm
       name="place"
@@ -9,6 +30,7 @@ function PlacePopup(props) {
       buttonText="Создать"
       isOpen={props.isOpen}
       onClose={props.onClose}
+      onSubmit={handleSubmit}
     >
       <input
         name="name"
@@ -19,6 +41,8 @@ function PlacePopup(props) {
         required
         minLength={2}
         maxLength={30}
+        value={name || ''}
+        onChange={handleChangeName}
       />
       <span className="popup__input-error popup__input-error_type_name" />
       <input
@@ -28,6 +52,8 @@ function PlacePopup(props) {
         className="popup__input popup__input_type_link"
         aria-label="Укажите ссылку."
         required
+        value={place || ''}
+        onChange={handleChangePlace}
       />
       <span className="popup__input-error popup__input-error_type_link" />
     </PopupWithForm>

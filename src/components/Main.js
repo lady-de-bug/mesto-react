@@ -7,23 +7,6 @@ function Main(props) {
   // console.log(props);
   const currentUser = React.useContext(CurrentUserContext);
 
-  // const [cards, setCards] = React.useState([]);
-
-  // React.useEffect(() => {
-  //   api
-  //     .getInitialCards()
-  //     .then((cardsData) => {
-  //       const cards = cardsData.map((cardData) => {
-  //         return { link: cardData.link, name: cardData.name, id: cardData._id };
-  //       });
-
-  //       setCards(cards);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-
   return (
     <main className="main">
       <section className="profile">

@@ -119,6 +119,18 @@ function App() {
       });
   }
 
+  function handleAddPlaceSubmit(newCard) {
+    api
+      .addNewCard(newCard)
+      .then((cardData) => {
+        setCards([cardData, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="root">
@@ -140,7 +152,11 @@ function App() {
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
           />
-          <PlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <PlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
           <PopUpWithSubmit onClose={closeAllPopups} />
           <AvatarPopup
             isOpen={isEditAvatarPopupOpen}
