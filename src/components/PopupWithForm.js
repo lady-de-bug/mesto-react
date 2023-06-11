@@ -1,6 +1,7 @@
 import React from 'react';
 
 function PopupWithForm(props) {
+  // console.log(props)
   return (
     <div
       className={`popup popup_type_${props.name} ${
@@ -21,7 +22,8 @@ function PopupWithForm(props) {
             type="submit"
             aria-label="Отправка формы."
           >
-            {props.buttonText || 'Сохранить'}
+            
+            {props.onLoad ? 'Сохранение...' : (props.buttonText || 'Сохранить')}
           </button>
         </form>
 

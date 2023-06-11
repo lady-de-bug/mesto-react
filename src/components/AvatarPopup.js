@@ -2,6 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AvatarPopup(props) {
+  // console.log(props)
   const avatarRef = React.createRef();
 
   function handleSubmit(e) {
@@ -25,6 +26,7 @@ function AvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      onLoad={props.onLoad}
     >
       <input
         type="url"

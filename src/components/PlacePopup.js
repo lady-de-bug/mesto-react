@@ -38,6 +38,7 @@ function PlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      onLoad={props.onLoad}
     >
       <input
         name="name"

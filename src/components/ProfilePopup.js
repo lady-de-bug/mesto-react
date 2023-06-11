@@ -39,6 +39,7 @@ function ProfilePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
+      onLoad={props.onLoad}
     >
       <input
         type="text"
